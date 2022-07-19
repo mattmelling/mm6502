@@ -1,0 +1,5 @@
+/.direnv/
+*.o
+/mm6502
+/lib
+/include

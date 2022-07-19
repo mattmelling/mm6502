@@ -1,0 +1,51 @@
+{
+  "nodes": {
+    "fake6502": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1666998744,
+        "narHash": "sha256-62B7SB9YN8MOfBrX6+/Ob2PKZq1HNBv5/WUOJJ0UxLE=",
+        "type": "git",
+        "url": "file:///home/matt/code/fake6502"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/matt/code/fake6502"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 0,
+        "narHash": "sha256-oXB5ja4SdmnPowBIAmEsgfrx8HPziEs6GXoy1mJ4eRI=",
+        "path": "/nix/store/3p37fyinfd98n3z4ybb7awxm5561xc2b-source",
+        "type": "path"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 0,
+        "narHash": "sha256-oXB5ja4SdmnPowBIAmEsgfrx8HPziEs6GXoy1mJ4eRI=",
+        "path": "/nix/store/3p37fyinfd98n3z4ybb7awxm5561xc2b-source",
+        "type": "path"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "root": {
+      "inputs": {
+        "fake6502": "fake6502",
+        "nixpkgs": "nixpkgs_2"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
