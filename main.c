@@ -46,6 +46,8 @@ int main()
 {
   via.address = 0x6000;
   acia.address = 0x4000;
+  acia.status = ACIA_STATUS_TXE;
+  mm6551_init(&acia);
   mm6502_mem_init(&memory, 0x4000, 0x0000);
   mm6502_mem_init(&rom,    0x8000, 0x8000);
   mm6502_mem_load(&rom,    0x0000, "/home/matt/code/6502/aciatest.rom");

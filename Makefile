@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-g -Werror -pedantic -I include
+CFLAGS=-g -Werror -pedantic -I include -O1
 LD=ld
 
 OBJ=main.o mm6502.o memory.o repl.o dism.o via.o acia.o

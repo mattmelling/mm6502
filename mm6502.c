@@ -28,7 +28,7 @@ void mm6502_step(fake6502_context *context)
   fake6502_step(context);
   mm6502_step_callback *callback = mm6502_step_callbacks;
   while(callback->fn != NULL) {
-    callback->fn(context);
+    callback->fn(context, callback->data);
     callback++;
   }
 }

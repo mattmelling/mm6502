@@ -8,7 +8,7 @@ typedef struct mm6502_step_callback mm6502_step_callback;
 
 typedef uint8_t (mm6502_read_callback_fn)(fake6502_context *context, uint16_t address, void *data);
 typedef void (mm6502_write_callback_fn)(fake6502_context *context, uint16_t address, uint8_t value, void *data);
-typedef void (mm6502_step_callback_fn)(fake6502_context *context);
+typedef void (mm6502_step_callback_fn)(fake6502_context *context, void *data);
 
 struct mm6502_read_callback {
   uint16_t from;
