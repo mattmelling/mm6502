@@ -10,7 +10,7 @@ default: mm6502
 %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-mm6502: lib/fake6502.o $(OBJ)
+mm6502: lib/fake65c02.o $(OBJ)
 	$(CC) $(CFLAGS) $^ -o $@
 
 .PHONY: clean
