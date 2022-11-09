@@ -8,11 +8,11 @@
         "lastModified": 1666998744,
         "narHash": "sha256-62B7SB9YN8MOfBrX6+/Ob2PKZq1HNBv5/WUOJJ0UxLE=",
         "type": "git",
-        "url": "file:///home/matt/code/fake6502"
+        "url": "file:///home/matt/code/6502/fake6502"
       },
       "original": {
         "type": "git",
-        "url": "file:///home/matt/code/fake6502"
+        "url": "file:///home/matt/code/6502/fake6502"
       }
     },
     "nixpkgs": {
