@@ -6,7 +6,10 @@
       },
       "locked": {
         "lastModified": 1666998744,
-        "narHash": "sha256-62B7SB9YN8MOfBrX6+/Ob2PKZq1HNBv5/WUOJJ0UxLE=",
+        "narHash": "sha256-VnVJyn9PH71SJKZO6SJA6Gc3S4HXE626ZJVw5mFPirk=",
+        "ref": "refs/heads/master",
+        "rev": "e3e5e0a86738567b876fca77f900c9ae411da39c",
+        "revCount": 143,
         "type": "git",
         "url": "file:///home/matt/code/6502/fake6502"
       },
