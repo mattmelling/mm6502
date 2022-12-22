@@ -69,6 +69,7 @@ void mm6551_step_callback(fake6502_context *context, void *data)
 {
   mm6551_acia *acia = (mm6551_acia *)data;
   char buf;
+  int echo = 0;
   ssize_t n;
 
   // todo recover from terminal disconnect
@@ -84,6 +85,7 @@ void mm6551_step_callback(fake6502_context *context, void *data)
         }
 
         acia->rx = buf;
+        echo = 1;
         acia->status |= ACIA_STATUS_RXF;
 
         // interrupt?
@@ -96,6 +98,13 @@ void mm6551_step_callback(fake6502_context *context, void *data)
 
     // can we write?
     if(acia->fd.revents & POLLOUT) {
+
+      // echo previously rxd char if we have one and echo is enabled
+      if(echo && (acia->command & ACIA_COMMAND_REM)) {
+        // We'll write back directly rather than through buffer
+        n = write(acia->fd.fd, &acia->rx, 1);
+        echo = 0; // what about if we want to echo a null char?
+      }
 
       if((acia->status & ACIA_STATUS_TXE) == 0) {
         // only if the tx buffer is full though
