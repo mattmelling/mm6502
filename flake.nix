@@ -1,6 +1,6 @@
 {
   inputs = {
-    fake6502.url = "git+file:///home/matt/code/6502/fake6502";
+    fake6502.url = "github:mattmelling/fake6502";
   };
   outputs = { self, nixpkgs, fake6502 }: {
     devShells.x86_64-linux.default = let
