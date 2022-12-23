@@ -1,0 +1,44 @@
+Emulator and debugger for my 6502 single board computer.
+
+Based on [[https://github.com/mattmelling/fake6502][fake6502]].
+
+- Read and write memory locations
+- Partial emulation of 6522 VIA
+- Partial emulation of 6551 ACIA
+- Interact with ACIA over a virtual serial port
+- Step through code line-by-line or run to an optional breakpoint
+- Built in (buggy but functional) disassembler
+
+#+BEGIN_SRC 
+$ ./mm6502 -b ~/code/6502/ehbasic/rom.bin 
+info:acia.c:65:acia at 4000 on /dev/pts/6
+info:memory.c:7:init memory segment 0000-ffff
+info:memory.c:7:init memory segment 8000-ffff
+info:memory.c:28:loading /home/matt/code/6502/ehbasic/rom.bin to 8000
+info:repl.c:138:cpu reset
+pc=a866 f=-z---- a=00 x=00 y=00 s=00fd
+a866: cld          ; d8
+? r 807f
+pc=807f f=cz-dv- a=40 x=00 y=00 s=00ff
+807f: lda 11     ; a5 11
+? m 10
+
+0010: f2 00 40 00 00 00 00 00 00 00 00 00 00 00 00 00
+? z
+807f: lda 11     ; a5 11
+8081: ldy 12     ; a4 12
+8083: cpy #05      ; c0 05
+8085: bcc 97       ; 90 97
+8087: sta 85     ; 85 85
+8089: sty 86     ; 84 86
+808b: sta 81     ; 85 81
+808d: sty 82     ; 84 82
+808f: ldy #00      ; a0 00
+8091: ldx #04      ; a2 04
+8093: sty 79     ; 84 79
+8095: stx 7a     ; 86 7a
+8097: tya          ; 98
+8098: sta (e679),y ; 91 79 e6
+809b: adc 9820,y   ; 79 20 98
+809e: dey          ; 88
+#+END_SRC
