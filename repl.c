@@ -59,6 +59,7 @@ void mm6502_repl_print_help()
   printf("m <start> <length>  ; memory\n");
   printf("z <start> <length>  ; disassemble\n");
   printf("i <address> <value> ; insert\n");
+  printf("p <address>         ; set pc\n");
   printf("?                   ; help\n");
 }
 
@@ -115,6 +116,9 @@ void mm6502_repl_process(fake6502_context *context, char *buffer, size_t size)
     mm6502_breakpoint = i1;
     printf("breakpoint at %x\n", mm6502_breakpoint);
     return;
+  case 'p': // set pc
+    context->cpu.pc = i1;
+    break;
   case '?': // help
     mm6502_repl_print_help();
     return;
