@@ -58,7 +58,8 @@ void mm6502_repl_print_help()
   printf("x                   ; reset\n");
   printf("s <steps>           ; step\n");
   printf("r [to]              ; run\n");
-  printf("m <start> <length>  ; memory\n");
+  printf("m <start> <length>  ; memory listing\n");
+  printf("M <addr>            ; memory word\n");
   printf("z <start> <length>  ; disassemble\n");
   printf("i <address> <value> ; insert\n");
   printf("p <address>         ; set pc\n");
@@ -98,6 +99,9 @@ void mm6502_repl_process(fake6502_context *context, char *buffer, size_t size)
     break;
   case 'm': // memory
     mm6502_dump_memory(context, i1, i2);
+    return;
+  case 'M':
+    printf("%04x = %02x\n", i1, fake6502_mem_read(context, i1));
     return;
   case 'z': // disassemble
     if(i1 == 0) {
