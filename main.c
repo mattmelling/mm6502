@@ -44,17 +44,30 @@ mm6502_step_callback mm6502_step_callbacks[] = {
 };
 
 #define USAGE() \
-  fprintf(stderr, "Usage: %s [-b] rom\n", argv[0]); \
+  fprintf(stderr, "Usage: %s [-b] [-p address] rom\n", argv[0]); \
   exit(EXIT_FAILURE);
 
 int main(int argc, char *argv[])
 {
+  via.address = 0x6000;
+  acia.address = 0xf000;
+  acia.status = ACIA_STATUS_TXE;
+  mm6551_init(&acia);
+  mm6502_mem_init(&memory, 0x10000, 0x0000);
+  mm6502_mem_init(&rom,    0x0000, 0x8000);
+  fake6502_reset(&context);
+
   int opt;
   int dobreak = 0;
-  while ((opt = getopt(argc, argv, "b")) != -1) {
+  unsigned int spc = 0;
+  while ((opt = getopt(argc, argv, "bp:")) != -1) {
     switch (opt) {
     case 'b':
       dobreak = 1;
+      break;
+    case 'p':
+      sscanf(optarg, "%x", &spc);
+      context.cpu.pc = spc;
       break;
     default:
       USAGE();
@@ -68,15 +81,8 @@ int main(int argc, char *argv[])
     USAGE();
   }
 
-  via.address = 0x6000;
-  acia.address = 0x4000;
-  acia.status = ACIA_STATUS_TXE;
-  mm6551_init(&acia);
-  mm6502_mem_init(&memory, 0x10000, 0x0000);
-  mm6502_mem_init(&rom,    0x8000, 0x8000);
-
   char *rompath = argv[optind];
-  mm6502_mem_load(&rom, 0x0000, rompath);
+  mm6502_mem_load(&memory, 0x0000, rompath);
 
   if (dobreak) {
     mm6502_repl(&context);

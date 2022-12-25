@@ -143,9 +143,6 @@ void mm6502_repl(fake6502_context *context)
   size_t characters;
 
   buffer = (char *)malloc(bufsize * sizeof(char));
-
-  fake6502_reset(context);
-  info("cpu reset");
   mm6502_repl_print_status(context);
 
   while(1) {
