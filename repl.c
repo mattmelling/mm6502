@@ -41,7 +41,7 @@ void mm6502_repl_dism(fake6502_context *context, uint16_t start, uint16_t size)
 
 void mm6502_repl_print_status(fake6502_context *context)
 {
-  printf("pc=%04x f=%02x %c%c%c%c%c%c%c a=%02x x=%02x y=%02x s=%04x\n",
+  printf("pc=%04x f=%02x %c%c1%c%c%c%c%c a=%02x x=%02x y=%02x s=%04x\n",
          context->cpu.pc,
          context->cpu.flags,
          FLAG_N(context), FLAG_V(context),
