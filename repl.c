@@ -114,6 +114,7 @@ void mm6502_repl_process(fake6502_context *context, char *buffer, size_t size)
     return;
   case 'i': // insert
     fake6502_mem_write(context, i1, i2);
+    printf("%04x = %02x\n", i1, fake6502_mem_read(context, i1));
     return;
   case 'b':
     if(i1 == 0) {
