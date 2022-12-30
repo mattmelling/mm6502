@@ -5,11 +5,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1671818279,
-        "narHash": "sha256-AJd9jDbTu28/+6f7Fu3Lm4jt+vpqJBcfZRnd0cKNJnA=",
+        "lastModified": 1672428592,
+        "narHash": "sha256-E3F86DN+N/8CmvyH+FQEbqddtqq9Z8mPC5ybX+eLVC0=",
         "owner": "mattmelling",
         "repo": "fake6502",
-        "rev": "ef71e2f7617bbb79e7b5673ee63cebdea3ecae0a",
+        "rev": "75efaab8239afdd65c0b6ee4d91876d8e4cfda00",
         "type": "github"
       },
       "original": {
