@@ -11,4 +11,4 @@
 #define FLAG_Z(context) FLAG_CHAR(context, FAKE6502_ZERO_FLAG,      'Z', 'z')
 #define FLAG_C(context) FLAG_CHAR(context, FAKE6502_CARRY_FLAG,     'C', 'c')
 
-void mm6502_repl(fake6502_context *context);
+void mm6502_repl(fake6502_context *context, int verbose);

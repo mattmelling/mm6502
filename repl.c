@@ -66,7 +66,7 @@ void mm6502_repl_print_help()
   printf("?                   ; help\n");
 }
 
-void mm6502_repl_process(fake6502_context *context, char *buffer, size_t size)
+void mm6502_repl_process(fake6502_context *context, char *buffer, size_t size, int verbose)
 {
   char command;
   int n;
@@ -88,6 +88,9 @@ void mm6502_repl_process(fake6502_context *context, char *buffer, size_t size)
     break;
   case 'r': // run
     while(1) {
+      if(verbose) {
+        mm6502_repl_print_status(context);
+      }
       mm6502_step(context);
       if(context->cpu.pc == mm6502_breakpoint) {
         break;
@@ -130,14 +133,14 @@ void mm6502_repl_process(fake6502_context *context, char *buffer, size_t size)
     mm6502_repl_print_help();
     return;
   default:
-    mm6502_repl_process(context, "s", 1);
+    mm6502_repl_process(context, "s", 1, verbose);
     return;
   }
 
   mm6502_repl_print_status(context);
 }
 
-void mm6502_repl(fake6502_context *context)
+void mm6502_repl(fake6502_context *context, int verbose)
 {
   char *buffer;
   size_t bufsize = 32;
@@ -149,6 +152,6 @@ void mm6502_repl(fake6502_context *context)
   while(1) {
     printf("? ");
     characters = getline(&buffer, &bufsize, stdin);
-    mm6502_repl_process(context, buffer, characters);
+    mm6502_repl_process(context, buffer, characters, verbose);
   }
 }
