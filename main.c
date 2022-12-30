@@ -56,18 +56,23 @@ int main(int argc, char *argv[])
   mm6502_mem_init(&memory, 0x10000, 0x0000);
   mm6502_mem_init(&rom,    0x8000, 0x8000);
 
+  mm6502_repl_opts opts;
+  opts.context = &context;
+  opts.run = true;
+  opts.verbose = false;
+
   int opt;
-  int dobreak = 0, verbose = 0, spc = -1;
+  int spc = -1;
   while ((opt = getopt(argc, argv, "vbp:")) != -1) {
     switch (opt) {
     case 'b':
-      dobreak = 1;
+      opts.run = false;
       break;
     case 'p':
       sscanf(optarg, "%x", (unsigned int *)&spc);
       break;
     case 'v':
-      verbose = 1;
+      opts.verbose = true;
       break;
     default:
       USAGE();
@@ -86,11 +91,5 @@ int main(int argc, char *argv[])
     context.cpu.pc = spc;
   }
 
-  if (dobreak) {
-    mm6502_repl(&context, verbose);
-  } else {
-    while (1) {
-      fake6502_step(&context);
-    }
-  }
+  mm6502_repl(&opts);
 }

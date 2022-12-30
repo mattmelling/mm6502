@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <fake6502.h>
 
 #define MEM_DUMP_WIDTH 16
@@ -11,4 +12,12 @@
 #define FLAG_Z(context) FLAG_CHAR(context, FAKE6502_ZERO_FLAG,      'Z', 'z')
 #define FLAG_C(context) FLAG_CHAR(context, FAKE6502_CARRY_FLAG,     'C', 'c')
 
-void mm6502_repl(fake6502_context *context, int verbose);
+typedef struct mm6502_repl_opts mm6502_repl_opts;
+
+struct mm6502_repl_opts {
+  fake6502_context *context;
+  bool run;
+  bool verbose;
+};
+
+void mm6502_repl(mm6502_repl_opts *opts);

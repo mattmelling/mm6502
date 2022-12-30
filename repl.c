@@ -39,8 +39,12 @@ void mm6502_repl_dism(fake6502_context *context, uint16_t start, uint16_t size)
   }
 }
 
-void mm6502_repl_print_status(fake6502_context *context)
+void mm6502_repl_print_status(mm6502_repl_opts *opts)
 {
+  if(opts->run && !opts->verbose) {
+    return;
+  }
+  fake6502_context *context = opts->context;
   printf("pc=%04x f=%02x %c%c1%c%c%c%c%c a=%02x x=%02x y=%02x s=%04x\n",
          context->cpu.pc,
          context->cpu.flags,
@@ -66,11 +70,13 @@ void mm6502_repl_print_help()
   printf("?                   ; help\n");
 }
 
-void mm6502_repl_process(fake6502_context *context, char *buffer, size_t size, int verbose)
+void mm6502_repl_process(mm6502_repl_opts *opts, char *buffer, size_t size)
 {
   char command;
   int n;
   unsigned int i1 = 0, i2 = 0;
+
+  fake6502_context *context = opts->context;
 
   n = sscanf(buffer, "%c %x %x", &command, &i1, &i2);
 
@@ -88,8 +94,8 @@ void mm6502_repl_process(fake6502_context *context, char *buffer, size_t size, i
     break;
   case 'r': // run
     while(1) {
-      if(verbose) {
-        mm6502_repl_print_status(context);
+      if(opts->verbose) {
+        mm6502_repl_print_status(opts);
       }
       mm6502_step(context);
       if(context->cpu.pc == mm6502_breakpoint) {
@@ -133,25 +139,27 @@ void mm6502_repl_process(fake6502_context *context, char *buffer, size_t size, i
     mm6502_repl_print_help();
     return;
   default:
-    mm6502_repl_process(context, "s", 1, verbose);
+    mm6502_repl_process(opts, "s", 1);
     return;
   }
 
-  mm6502_repl_print_status(context);
+  mm6502_repl_print_status(opts);
 }
 
-void mm6502_repl(fake6502_context *context, int verbose)
+void mm6502_repl(mm6502_repl_opts *opts)
 {
   char *buffer;
   size_t bufsize = 32;
   size_t characters;
 
   buffer = (char *)malloc(bufsize * sizeof(char));
-  mm6502_repl_print_status(context);
+  mm6502_repl_print_status(opts);
 
   while(1) {
-    printf("? ");
-    characters = getline(&buffer, &bufsize, stdin);
-    mm6502_repl_process(context, buffer, characters, verbose);
+    if(!opts->run) {
+      printf("? ");
+      characters = getline(&buffer, &bufsize, stdin);
+    }
+    mm6502_repl_process(opts, buffer, characters);
   }
 }
